@@ -57,7 +57,7 @@ const Home = () => {
     const resultSearch = Cities.filter(item => 
     (item.name.toString().toLowerCase().includes(itemSearch.toLowerCase())))
     .map(item => { return item }); 
-    setInitialCities(resultSearch.sort());
+    setInitialCities(resultSearch);
   };
 
   const handleSelectCity = (city: any) => {
@@ -65,11 +65,36 @@ const Home = () => {
     let array: any = [];
     Cities.forEach((item, index) => {
       const distance = distanceCities(parseInt(city.lat), parseInt(city.lng), parseInt(item.lat), parseInt(item.lng));
-      if(index < 3){ array.push({...item, distance: distance})}
-      else{
-        array = array.map((e: any) => e.distance < distance ? e : {...item, distance: distance})
+        if(index < 3){
+          array.push({...item, distance: distance});
+        }
+        else{
+          if(array[0].distance > array[1].distance){
+            if(array[0].distance > array[2].distance){
+              if(array[0].distance > distance){
+                array[0] = {...item, distance: distance};
+              }
+            } 
+            else{
+              if(array[2].distance > distance){
+                array[2] = {...item, distance: distance};
+              }
+            }
+          }
+          else{
+            if(array[1].distance > array[2].distance){
+              if(array[1].distance > distance){
+                array[1] = {...item, distance: distance};
+              }
+              else{
+                if(array[2].distance > distance){
+                  array[2] = {...item, distance: distance};
+                }
+              }
+            } 
+        }
       }
-      })
+    })
     setNearestCities(array);
     return array;
   }
@@ -79,7 +104,7 @@ const Home = () => {
       <ContainerRoot>
         <ContainerHeader>
           <TitleComponent> Find Nearest </TitleComponent>
-          <InputComponent placeholder={'Buscar ciudad'} type='text' value={searchValue} handleChange={handleChange} />
+          <InputComponent ariaLabel={'Input'} placeholder={'Buscar ciudad'} type='text' value={searchValue} handleChange={handleChange} />
         </ContainerHeader>
         <CitiesComponent 
           initialCities={initialCities}
