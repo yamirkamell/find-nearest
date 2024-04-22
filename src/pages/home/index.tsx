@@ -23,6 +23,7 @@ const Home = () => {
     return () =>{
       if(observer) observer.disconnect();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[initialCities])
 
   const OnIntersection = (entries: any) => {
