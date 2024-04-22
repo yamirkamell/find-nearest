@@ -3,16 +3,16 @@ import { ContainerComponent, ContainerIcon, Input } from "./styled"
 interface inputTypes {
   placeholder: string
   type: string
-  name: string
-  setName: any
+  value: string
+  handleChange: any
 }
 
 const InputComponent = (props : inputTypes) => {
-  const { placeholder, type, name, setName } = props;
+  const { placeholder, type, value, handleChange } = props;
 
   return (
     <ContainerComponent>
-      <Input placeholder={placeholder} type={type} value={name} onChange={setName} />
+      <Input placeholder={placeholder} type={type} value={value} onChange={handleChange} />
       <ContainerIcon>
         x
       </ContainerIcon>

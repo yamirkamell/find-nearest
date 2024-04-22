@@ -3,11 +3,15 @@ import Layout from '../../components/_layout/layout';
 import InputComponent from './components/inputComponent';
 import Cities from '../../mocks/api-cities/GET.json';
 import CitiesComponent from './components/citiesComponent';
-import { ContainerHeader, ContainerRoot } from './styled';
+import { ContainerHeader, ContainerRoot, TitleComponent } from './styled';
+import { distanceCities } from '../../utils';
+import NearestCitiesComponent from './components/nearestCitiesComponent';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState('');
   const [initialCities, setInitialCities] = useState<any>([]);
+  const [selectedCity, setSelectedCity] = useState<any>(undefined);
+  const [nearestCities, setNearestCities] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
   const [offSet, setOffset] = useState(0);
   const limit = 10;
@@ -56,19 +60,40 @@ const Home = () => {
     setInitialCities(resultSearch.sort());
   };
 
+  const handleSelectCity = (city: any) => {
+    setSelectedCity(city);
+    let array: any = [];
+    Cities.forEach((item, index) => {
+      const distance = distanceCities(parseInt(city.lat), parseInt(city.lng), parseInt(item.lat), parseInt(item.lng));
+      if(index < 3){ array.push({...item, distance: distance})}
+      else{
+        array = array.map((e: any) => e.distance < distance ? e : {...item, distance: distance})
+      }
+      })
+    setNearestCities(array);
+    return array;
+  }
+
   return (
     <Layout>
       <ContainerRoot>
         <ContainerHeader>
-          <h2> Find Nearest </h2>
-          <InputComponent placeholder={'inserte...'} type='text' name={searchValue} setName={handleChange} />
+          <TitleComponent> Find Nearest </TitleComponent>
+          <InputComponent placeholder={'Buscar ciudad'} type='text' value={searchValue} handleChange={handleChange} />
         </ContainerHeader>
         <CitiesComponent 
           initialCities={initialCities}
           hasMore={hasMore}
           searchValue={searchValue}
           elementRef={elementRef}
+          handleSelectCity={handleSelectCity}
         />
+        {selectedCity !== undefined ?
+          <NearestCitiesComponent 
+            selectedCity={selectedCity}
+            nearestCities={nearestCities}
+          />
+        : null}
       </ContainerRoot>
     </Layout>
   )

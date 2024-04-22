@@ -15,8 +15,15 @@ const ContainerHeader = styled.div`
     justify-content: center;
 `;
 
+const TitleComponent = styled.span`
+    color: #51dbe8; 
+    font-size: 34px; 
+    padding: 20px;
+`;
+
 export {
     ContainerRoot,
-    ContainerHeader
+    ContainerHeader,
+    TitleComponent
 };
     

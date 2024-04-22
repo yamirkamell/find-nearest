@@ -1,14 +1,16 @@
 import React from 'react';
-import { ContainerTable, ContainerTitles, DividerComponent, TextComponent } from './styled';
+import { ContainerLoader, ContainerTable, ContainerTitles, DividerComponent, TextComponent } from './styled';
 import ReactLoading from 'react-loading';
 
 interface Props {
     initialCities: any,
     hasMore: boolean,
     searchValue: string,
-    elementRef: any
-  }
-const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef} : Props) => {
+    elementRef: any,
+    handleSelectCity: any
+}
+
+const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handleSelectCity} : Props) => {
 
   return (
       <ContainerTable>
@@ -19,17 +21,17 @@ const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef} : Pro
           <DividerComponent />
           {initialCities?.map((item: any, index: number) => (
             <div key={index}>
-            <ContainerTitles id='data' onClick={()=>{}}>
-                <TextComponent> {item.name} </TextComponent>
+            <ContainerTitles id='data' onClick={()=>{handleSelectCity(item)}}>
+                <TextComponent id='name'> {item.name} </TextComponent>
                 <TextComponent id='center'> {item.country} </TextComponent>
             </ContainerTitles>
             <DividerComponent />
             </div>
           ))}
         {!hasMore || searchValue === '' ? 
-        <div ref={elementRef} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <ContainerLoader ref={elementRef}>
           <ReactLoading type={'spinningBubbles'} color={'#51dbe8'} height={'10%'} width={'10%'} />
-        </div> 
+        </ContainerLoader> 
         : null
         }
         </ContainerTable>

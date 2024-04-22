@@ -25,8 +25,14 @@ const ContainerTitles = styled.div`
     grid-template-columns: 75% 20%;
     align-items: center; 
     width: 100%;
+    padding-left: 10px;
     #center{
         text-align: center;
+    }
+    #name{
+        border-bottom: 1px solid #9B9B9B;
+        width: fit-content;
+        align-item: center;
     }
     #icon{
         color: #51dbe8;
@@ -39,7 +45,6 @@ const ContainerTitles = styled.div`
 const TextComponent = styled.span`
     text-align: start;
     color: #9B9B9B;
-    padding-left: 20px;
 `;
 
 const DividerComponent = styled.hr`
@@ -50,10 +55,18 @@ const DividerComponent = styled.hr`
   } 
 `;
 
+const ContainerLoader = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    } 
+`;
+
 export {
     ContainerTable,
     ContainerTitles,
     TextComponent,
     DividerComponent,
+    ContainerLoader
 };
     
