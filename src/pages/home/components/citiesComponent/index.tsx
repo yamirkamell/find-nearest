@@ -21,7 +21,7 @@ const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handl
           <DividerComponent />
           {initialCities?.map((item: any, index: number) => (
             <div key={index}>
-            <ContainerTitles id='data' onClick={()=>{handleSelectCity(item)}}>
+            <ContainerTitles id='data' onClick={()=>{handleSelectCity({...item, index: index})}}>
                 <TextComponent id='name'> {item.name} </TextComponent>
                 <TextComponent id='center'> {item.country} </TextComponent>
             </ContainerTitles>
@@ -29,7 +29,7 @@ const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handl
             </div>
           ))}
         {!hasMore || searchValue === '' ? 
-        <ContainerLoader ref={elementRef}>
+        <ContainerLoader role="loader" ref={elementRef}>
           <ReactLoading type={'spinningBubbles'} color={'#51dbe8'} height={'10%'} width={'10%'} />
         </ContainerLoader> 
         : null
