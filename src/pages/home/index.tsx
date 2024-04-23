@@ -6,12 +6,13 @@ import CitiesComponent from './components/citiesComponent';
 import { ContainerHeader, ContainerRoot, TitleComponent } from './styled';
 import { distanceCities } from '../../utils';
 import NearestCitiesComponent from './components/nearestCitiesComponent';
+import { InitialCitiesType } from './types';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [initialCities, setInitialCities] = useState<any>([]);
-  const [selectedCity, setSelectedCity] = useState<any>(undefined);
-  const [nearestCities, setNearestCities] = useState<any>([]);
+  const [initialCities, setInitialCities] = useState<InitialCitiesType[]>([]);
+  const [selectedCity, setSelectedCity] = useState<InitialCitiesType | undefined>(undefined);
+  const [nearestCities, setNearestCities] = useState<InitialCitiesType[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [offSet, setOffset] = useState(0);
   const limit = 10;
@@ -37,7 +38,7 @@ const Home = () => {
       if(offSet >= Cities.length) setHasMore(false);
       else{
         setTimeout(()=>{
-          setInitialCities((initialCities: any) => [...initialCities, ...Cities.slice(init, final)]);
+          setInitialCities((initialCities: InitialCitiesType[]) => [...initialCities, ...Cities.slice(init, final)]);
           setOffset((offSet) => offSet + limit);
         }, 1000);
       }
@@ -54,14 +55,14 @@ const Home = () => {
     }, 1000);
   };
 
-  const filterItem = (itemSearch: any) => {
+  const filterItem = (itemSearch: string) => {
     const resultSearch = Cities.filter(item => 
     (item.name.toString().toLowerCase().includes(itemSearch.toLowerCase())))
     .map(item => { return item }); 
     setInitialCities(resultSearch);
   };
 
-  const handleSelectCity = (city: any) => {
+  const handleSelectCity = (city: InitialCitiesType) => {
     setSelectedCity(city);
     let array: any = [];
     Cities.forEach((item, index) => {

@@ -5,7 +5,7 @@ interface inputTypes {
   placeholder: string
   type?: string
   value?: string
-  handleChange?: any
+  handleChange?: (e: object) => void
 }
 
 const InputComponent = (props : inputTypes) => {

@@ -11,7 +11,6 @@ describe('Test suite for Table component', () => {
                 initialCities={exampleRows}
                 hasMore={true}
                 searchValue={''}
-                elementRef={null}
                 handleSelectCity={() => {}}
 			/>
 		);
@@ -29,7 +28,6 @@ describe('Test suite for Table component', () => {
                 initialCities={exampleRows}
                 hasMore={true}
                 searchValue={''}
-                elementRef={null}
                 handleSelectCity={() => {}}
 			/>
 		);
@@ -48,7 +46,6 @@ describe('Test suite for Table component', () => {
                 initialCities={exampleRows}
                 hasMore={true}
                 searchValue={''}
-                elementRef={null}
                 handleSelectCity={handleOnRowClickBefore}
 			/>
 		);
