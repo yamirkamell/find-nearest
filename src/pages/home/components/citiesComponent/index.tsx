@@ -1,16 +1,9 @@
 import React from 'react';
 import { ContainerLoader, ContainerTable, ContainerTitles, DividerComponent, TextComponent } from './styled';
 import ReactLoading from 'react-loading';
+import { CitiesType, InitialCitiesType } from '../../types';
 
-interface Props {
-    initialCities: any,
-    hasMore: boolean,
-    searchValue: string,
-    elementRef: any,
-    handleSelectCity: any
-}
-
-const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handleSelectCity} : Props) => {
+const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handleSelectCity} : CitiesType) => {
 
   return (
       <ContainerTable>
@@ -19,9 +12,9 @@ const CitiesComponent = ({initialCities, hasMore, searchValue, elementRef, handl
             <TextComponent id='center'> Country </TextComponent>            
           </ContainerTitles>
           <DividerComponent />
-          {initialCities?.map((item: any, index: number) => (
+          {initialCities?.map((item: InitialCitiesType, index: number) => (
             <div key={index}>
-            <ContainerTitles id='data' onClick={()=>{handleSelectCity({...item, index: index})}}>
+            <ContainerTitles id='data' onClick={()=>{handleSelectCity(item)}}>
                 <TextComponent id='name'> {item.name} </TextComponent>
                 <TextComponent id='center'> {item.country} </TextComponent>
             </ContainerTitles>
